@@ -14,7 +14,9 @@ Objet3DComposite::Objet3DComposite(){
 
 Objet3DComposite::Objet3DComposite(const Objet3DComposite & mdd)
 {
-	// A Completer...
+	for (auto const& value : mdd.m_objetContainer) {
+		addChild(*value);
+	}
 }
 
 Objet3DComposite::~Objet3DComposite(){
@@ -27,37 +29,39 @@ Objet3DComposite * Objet3DComposite::clone() const
 
 void Objet3DComposite::addChild(const Objet3DAbs& obj3d)
 {
-	// A Completer...
+	Objet3DAbs* ptr = obj3d.clone();
+	std::unique_ptr<class Objet3DAbs> uptr(ptr);
+	m_objetContainer.push_back(uptr);
 }
 
 Objet3DIterator Objet3DComposite::begin(){
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return m_objetContainer.begin();
 }
 
 Objet3DIterator_const Objet3DComposite::cbegin() const {
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return m_objetContainer.cbegin();
 }
 
 Objet3DIterator_const Objet3DComposite::cend() const {
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return m_objetContainer.cend();
 }
 
 Objet3DIterator Objet3DComposite::end(){
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return m_objetContainer.end();
 }
 
 Point3D Objet3DComposite::getCenter() const {
 	
 	// A Completer...
-	return Point3D();
+	return computeCenter();
 }
 
 size_t Objet3DComposite::getNbParameters() const 
@@ -72,16 +76,18 @@ PrimitiveParams Objet3DComposite::getParameters() const {
 
 void Objet3DComposite::removeChild(Objet3DIterator_const obj3dIt)
 {
-	// A Completer...
+	m_objetContainer.erase(obj3dIt);
 }
 
 void Objet3DComposite::moveCenter(const Point3D & delta)
 {
-	// A Completer...
+	setCenter(computeCenter() += delta);
 }
 
 void Objet3DComposite::setCenter(const Point3D& center){
-	// A Completer...
+	for (auto const& value : m_objetContainer) {
+		value.get()->setCenter(center);
+	}
 }
 
 void Objet3DComposite::setParameter(size_t pIndex, float pValue){
@@ -92,10 +98,17 @@ Point3D Objet3DComposite::computeCenter() const
 {
 	// Calcul la moyenne des centres de tous les enfants
 	// S'il n'y a pas d'enfant, initialise a (0,0,0)
-
-	// A Completer...
-	Point3D m_center;
-	return m_center;
+	if (m_objetContainer.size() == 0) {
+		return Point3D(0,0,0);
+	}
+	else {
+		Point3D m_center = Point3D(0,0,0);
+		for (auto const& value : m_objetContainer) {
+			m_center += value.get()->getCenter();
+		}
+		m_center /= m_objetContainer.size();
+		return m_center;
+	}
 }
 
 // Variable statique permettant de stocker le niveau d'indentation
