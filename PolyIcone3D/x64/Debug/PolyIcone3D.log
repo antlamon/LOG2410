@@ -1,0 +1,13 @@
+﻿  Cube.cpp
+  Cylinder.cpp
+  Objet3DComposite.cpp
+  Point3D.cpp
+c:\users\antoi\downloads\tp4depart-a18\tp4depart\tp4code\point3d.cpp(61): warning C4305: 'initializing': truncation from 'double' to 'float'
+  PolyIcone3D.cpp
+  PrimitiveAbs.cpp
+  Sphere.cpp
+  TP4_Test.cpp
+  TransformedObjet3D.cpp
+  Generating Code...
+c:\users\antoi\downloads\tp4depart-a18\tp4depart\tp4code\cylinder.cpp(26): warning C4172: returning address of local variable or temporary
+  PolyIcone3D.vcxproj -> C:\Users\antoi\Downloads\TP4Depart-A18\TP4Depart\PolyIcone3D\x64\Debug\PolyIcone3D.exe
