@@ -7,18 +7,15 @@
 
 #include "Torus.h"
 
-Torus::Torus(const Point3D& pt, float rExt, float rInt)
+Torus::Torus(const Point3D& pt, float r1, float r2)
 	: PrimitiveAbs(pt)
 {
-	if (rExt < 0.0 || rInt < 0.0)
+	if (r1 < 0.0 || r2 < 0.0)
 		throw std::range_error("Invalid parameter value for Torus. Must be larger than 0");
 
-	if (rExt <=  rInt )
-		throw std::range_error("Invalid parameter value for Torus. Outer radius must be bigger than inner radius");
-
 	// A Completer...
-	m_dimensions[0] = rExt;
-	m_dimensions[1] = rInt;
+	m_dimensions[0] = r1;
+	m_dimensions[1] = r2;
 }
 
 Torus::~Torus() {
@@ -55,7 +52,17 @@ void Torus::setParameter(size_t pIndex, float pValue) {
 
 std::ostream & Torus::toStream(std::ostream & o) const
 {
+	int outerRadius,
+		innerRadius;
+	if (m_dimensions[0] >= m_dimensions[1]) {
+		outerRadius = m_dimensions[0];
+		innerRadius = m_dimensions[1];
+	}
+	else {
+		outerRadius = m_dimensions[1];
+		innerRadius = m_dimensions[0];
+	}
 	return o << "Torus:  center = " << m_center
-		<< "; outer radius = " << m_dimensions[0]
-		<< "; inner radius = " << m_dimensions[1] << ";";
+		<< "; outer radius = " << outerRadius
+		<< "; inner radius = " << innerRadius << ";";
 }
