@@ -9,6 +9,7 @@
 #include "Cube.h"
 #include "Cylinder.h"
 #include "Sphere.h"
+#include "Torus.h"
 
 
 TP4_Test::TP4_Test()
@@ -16,21 +17,21 @@ TP4_Test::TP4_Test()
 {
 	Cube     cub1(Point3D(1., 2., 3.), 2., 2., 2.);
 	Cube     cub2(Point3D(-1., 2., 4.), 2.5f, 2.1f, 4.);
-	Cylinder cyl1(Point3D(3., -1., 1.), 1., 2.);
-	Cylinder cyl2(Point3D(2., 1., 2.), 1., 2.);
+	Torus	 tor1(Point3D(3., -1., 1.), 2., 1.);
+	Torus    tor2(Point3D(2., 1., 2.), 2., 1.);
 	Sphere   sph1(Point3D(2., 2., 2.), 2.);
 	Sphere   sph2(Point3D(3., -1., 1.), 3.5);
 
 	Objet3DComposite compos1;
 	compos1.addChild(cub1);
-	compos1.addChild(cyl1);
+	compos1.addChild(tor1);
 	compos1.addChild(sph1);
 
 	Objet3DComposite compos2;
 	compos2.addChild(sph1);
 	compos2.addChild(compos1);
 	compos2.addChild(cub1);
-	compos2.addChild(cyl2);
+	compos2.addChild(tor2);
 
 	m_icone3D.addChild(cub2);
 	m_icone3D.addChild(compos2);
@@ -90,8 +91,8 @@ TP4_Test::RESULTAT TP4_Test::testComposite()
 	std::cout << "===== testComposite TEST 5 SUCCES" << std::endl;
 
 	++itCompos2; ++itCompos2;  ++itCompos2;
-	PrimitiveParams paramsCyl2 = itCompos2->getParameters();
-	if (paramsCyl2.size() != 2)
+	PrimitiveParams paramsTor2 = itCompos2->getParameters();
+	if (paramsTor2.size() != 2)
 	{
 		std::cout << "===== testComposite TEST 6 ECHEC" << std::endl;
 		return ECHEC;
