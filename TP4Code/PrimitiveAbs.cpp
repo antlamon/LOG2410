@@ -16,7 +16,7 @@ PrimitiveAbs::PrimitiveAbs(){
 
 PrimitiveAbs::PrimitiveAbs(const Point3D& c)
 {
-	m_center = c
+	m_center = c;
 }
 
 PrimitiveAbs::~PrimitiveAbs(){

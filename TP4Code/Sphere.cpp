@@ -21,7 +21,7 @@ Sphere::~Sphere() {
 
 Sphere * Sphere::clone() const
 {
-	return &(Sphere(m_center, m_radius));
+	return new Sphere(m_center, m_radius);
 }
 
 size_t Sphere::getNbParameters() const {

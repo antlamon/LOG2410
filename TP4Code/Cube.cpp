@@ -15,6 +15,9 @@ Cube::Cube(const Point3D& pt, float ln, float lg, float ht)
 		throw std::range_error("Invalid dimension value for cube. Must be larger than 0");
 
 	// A Completer...
+	m_dimensions[0] = ln;
+	m_dimensions[1] = lg;
+	m_dimensions[2] = ht;
 }
 
 Cube::~Cube() {
@@ -23,8 +26,7 @@ Cube::~Cube() {
 Cube * Cube::clone() const
 {
 	// A Completer...
-	Cube* cubeClone;
-	return cubeClone = new Cube(Point3D(m_center), m_dimensions[0], m_dimensions[1], m_dimensions[2]);
+	return new Cube(Point3D(m_center), m_dimensions[0], m_dimensions[1], m_dimensions[2]);
 }
 
 size_t Cube::getNbParameters() const {

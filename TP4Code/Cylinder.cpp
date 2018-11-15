@@ -23,7 +23,7 @@ Cylinder::~Cylinder() {
 
 Cylinder * Cylinder::clone() const
 {
-	return &(Cylinder(m_center, m_dimensions[0], m_dimensions[1]));
+	return new Cylinder(m_center, m_dimensions[0], m_dimensions[1]);
 }
 
 size_t Cylinder::getNbParameters() const {

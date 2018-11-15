@@ -29,9 +29,7 @@ Objet3DComposite * Objet3DComposite::clone() const
 
 void Objet3DComposite::addChild(const Objet3DAbs& obj3d)
 {
-	Objet3DAbs* ptr = obj3d.clone();
-	std::unique_ptr<class Objet3DAbs> uptr(ptr);
-	m_objetContainer.push_back(uptr);
+	m_objetContainer.push_back(Objet3DPtr(obj3d.clone()));
 }
 
 Objet3DIterator Objet3DComposite::begin(){
