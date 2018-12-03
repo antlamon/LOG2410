@@ -29,6 +29,9 @@ void VisitorPrimitiveSelector::visitCube(class Cube& cub)
 	// Verifier que la pile d'objets courants n'est pas vide
 	// Verifier que le type de la primitive est bien celui recherchee
 	// Si oui, ajouter la primitive dans les objets selectionnes
+	if (!m_currentObjStack.empty())
+		if (m_type == PRIMITIVE_TYPE::Cube_t)
+			m_selectObjContainer.push_back(m_currentObjStack.back());
 }
 
 void VisitorPrimitiveSelector::visitCylinder(class Cylinder& cyl)
@@ -37,6 +40,9 @@ void VisitorPrimitiveSelector::visitCylinder(class Cylinder& cyl)
 	// Verifier que la pile d'objets courants n'est pas vide
 	// Verifier que le type de la primitive est bien celui recherchee
 	// Si oui, ajouter la primitive dans les objets selectionnes
+	if (!m_currentObjStack.empty())
+		if (m_type == PRIMITIVE_TYPE::Cylinder_t)
+			m_selectObjContainer.push_back(m_currentObjStack.back());
 }
 
 void VisitorPrimitiveSelector::visitObjComposite(const Object3DComposite& comp)
@@ -51,6 +57,11 @@ void VisitorPrimitiveSelector::visitObjComposite(class Object3DComposite& comp)
 	//		- Stocker l'enfant sur la pile des objets courants
 	//		- Traiter l'enfant
 	//		- Retirer l'enfant de sur la pile
+	for (Object3DIterator it = comp.begin(); it != comp.end(); it++) {
+		m_currentObjStack.push_back(it);	// on met l'iterator sur la pile d'objet courant
+		it->accept(*this);					// on sélectionne la meilleure méthode de visite ici à l'aide du accept
+		m_currentObjStack.pop_back();		// on retire l'iterator de la pile
+	}
 }
 
 void VisitorPrimitiveSelector::visitPrimitive(const class PrimitiveAbs& prim)
@@ -69,6 +80,9 @@ void VisitorPrimitiveSelector::visitSphere(class Sphere& sph)
 	// Verifier que la pile d'objets courants n'est pas vide
 	// Verifier que le type de la primitive est bien celui recherchee
 	// Si oui, ajouter la primitive dans les objets selectionnes
+	if (!m_currentObjStack.empty())
+		if (m_type == PRIMITIVE_TYPE::Sphere_t)
+			m_selectObjContainer.push_back(m_currentObjStack.back());
 }
 
 void VisitorPrimitiveSelector::visitTransformedObj(class TransformedObject3D& tobj)
@@ -82,4 +96,6 @@ void VisitorPrimitiveSelector::getSelectObjects(Obj3DIteratorContainer & objCont
 	// A COMPLETER:
 	// Transferer les objets selectionnes du conteneur local au visiteur
 	// vers le conteneur fourni en argument
+	for (Obj3DIteratorContainer::iterator it = m_selectObjContainer.begin(); it != m_selectObjContainer.end(); it++)
+		objContainer.push_back(*it);	// on ajoute l'objet à la fin du container local
 }
