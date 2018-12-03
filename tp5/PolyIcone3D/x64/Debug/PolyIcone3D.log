@@ -1,0 +1,18 @@
+﻿  Cube.cpp
+  Cylinder.cpp
+  Invoker.cpp
+  Object3DComposite.cpp
+  Object3DVisitorAbs.cpp
+  Point3D.cpp
+  PolyIcone3D.cpp
+  PrimitiveAbs.cpp
+  SelectPrimitiveCmd.cpp
+  Sphere.cpp
+  TP5_Test.cpp
+  TransformCmd.cpp
+  TransformedObject3D.cpp
+  VisitorPrimitiveSelector.cpp
+  VisitorXMLWriter.cpp
+  XMLPrintCmd.cpp
+  Generating Code...
+  PolyIcone3D.vcxproj -> C:\Users\JonathanBordeleau\Desktop\LOG2410\tp5\PolyIcone3D\x64\Debug\PolyIcone3D.exe
