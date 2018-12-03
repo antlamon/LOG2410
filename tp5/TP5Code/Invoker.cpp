@@ -23,6 +23,8 @@ void Invoker::execute(CmdPtr & cmd)
 	// A COMPLETER:
 	//		- Executer la commande
 	//		- Stocker le pointeur dans la liste des commandes faites
+	cmd->execute();
+	m_cmdDone.push_back(cmd);
 }
 
 void Invoker::undo()
@@ -34,6 +36,11 @@ void Invoker::undo()
 	//			- Annuler la commande
 	//			- Retirer la derniere commande de la liste des commandes faites
 	//			- Ajouter la commande a la liste des commandes defaites
+	if (m_cmdDone.empty()) return;
+	CmdPtr lastCmd = m_cmdDone.back();
+	lastCmd->cancel();
+	m_cmdDone.pop_back();
+	m_cmdUndone.push_back(lastCmd);
 }
 
 void Invoker::redo()
@@ -45,4 +52,9 @@ void Invoker::redo()
 	//			- Executer la commande
 	//			- Retirer la derniere commande de la liste des commandes defaites
 	//			- Ajouter la commande a la liste des commandes faites
+	if (m_cmdUndone.empty()) return;
+	CmdPtr lastCmd = m_cmdUndone.back();
+	lastCmd->execute();
+	m_cmdUndone.pop_back();
+	m_cmdDone.push_back(lastCmd);
 }

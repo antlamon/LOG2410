@@ -25,6 +25,10 @@ void TransformCmd::cancel()
 		//		- Verifier si l'objet sur lequel pointe l'iterateur est un objet transforme
 		//		- Recuperer la primitive decoree par l'objet transforme
 		//		- Remplacer l'objet sur lequel pointe l'iterateur par la primitive
+		if (TransformedObject3D * object = dynamic_cast<TransformedObject3D*>(&*m_objIter))
+		{
+			m_objIter._Ptr = (Object3DPtr*)&object->getObject3D();
+		}
 	}
 	catch (std::bad_cast& err)
 	{
