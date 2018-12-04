@@ -89,6 +89,7 @@ void VisitorPrimitiveSelector::visitTransformedObj(class TransformedObject3D& to
 {
 	// A COMPLETER:
 	// Deleguer le traitement a la primitive contenue dans le decorateur 
+	tobj.accept(*this);
 }
 
 void VisitorPrimitiveSelector::getSelectObjects(Obj3DIteratorContainer & objContainer)
